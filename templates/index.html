@@ -1,8 +1,26 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
+{%block title%}Football Stats{%endblock%}
 {% block content %}
+
+<div class= 'text-center'>
 <h1>
+
+
     Welcome to Football Stats 
     <h2>The best way to keep your stats and gameplans organized.</h2>
 </h1>
+<div class='text-center'>
+<image src="{{ url_for('static', filename='images/FootballLineup.jpg')}}" class='rounded mx-auto d-block' length='500' width='500' alt='Footmall Image'> 
+</div>
+<div>
+Photo by <a href="/photographer/supercolor-46009">Nikki Johnson</a> from <a href="https://freeimages.com/">FreeImages</a>
+</div>
+<div class='text-center'>
+ <a href="/upload" class="btn btn-primary" >
+  Start Here
+  </a>
+  </div>
+
+  
+
 {%endblock%}

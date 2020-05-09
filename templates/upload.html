@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{%block title%}Football Stats{%endblock%}
+{% block content %}
+<div class='container'>
+<h1>Upload your game plan</h1>
+</div>
+<div class='text-left'>
+<image src="{{ url_for('static', filename='images/GamePlan.jpg')}}" class='rounded mx-auto d-block' length='500' width='500' alt='Planner'> 
+
+</div>
+<div>
+
+<div class='container'>
+    <form action = 'http://localhost:5000/uploader' method='POST'
+    enctype = 'multipart/form-data'>
+    <input type='file' name = 'file'/>
+    <input type = 'submit'/>
+    </form>
+</div>
+</div>
+{%endblock%}
