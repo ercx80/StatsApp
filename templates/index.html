@@ -9,12 +9,10 @@
     Welcome to Football Stats 
     <h2>The best way to keep your stats and gameplans organized.</h2>
 </h1>
-<div class='text-center'>
-<image src="{{ url_for('static', filename='images/FootballLineup.jpg')}}" class='rounded mx-auto d-block' length='500' width='500' alt='Footmall Image'> 
-</div>
-<div>
-Photo by <a href="/photographer/supercolor-46009">Nikki Johnson</a> from <a href="https://freeimages.com/">FreeImages</a>
-</div>
+<figure class="figure">
+  <img src="{{ url_for('static', filename='images/FootballLineup.jpg')}}" class="figure-img img-fluid rounded" alt="Footmall Image">
+  <figcaption class="figure-caption text-right">Photo by <a href="/photographer/supercolor-46009">Nikki Johnson</a> from <a href="https://freeimages.com/">FreeImages</figcaption>
+</figure>
 <div class='text-center'>
  <a href="/add" class="btn btn-primary" >
   Start Here
