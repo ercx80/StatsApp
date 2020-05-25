@@ -1,78 +1,12 @@
 {% extends 'base.html' %}
 {%block title%}Football Stats{%endblock%}
 {% block content %}
-<div class='container'>
-<form>
-<<h1>Enter a name for your gameplan:</h1>
-  <div class="form-group row">
-    <label for="plan" class="col-sm-2 col-form-label">Name:</label>
-    <div class="col-sm-10">
-      <input type="text" id="plan">
-    </div>
-  </div>
-<p><h1>Choose Your Formation<p></h1>
+<h1>Choose Your Formation</h1>
  <div class="form-row align-items-center">
     <div class="col-auto my-1">
       <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
         <option selected>Choose...</option>
-        <option value="doubles">Doubles</option>
-        <option value="wing">Wing</option>
-        <option value="trips">Trips</option>
       </select>
     </div>
   </div>
-
-<p><h1>Select The Variation</h1></p>
- <div class="form-group row">
-    <div class="col-sm-2">Select one or many:</div>
-    <div class="col-sm-10">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="split">
-        <label class="form-check-label" for="split">
-          Split
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="nearPistol">
-        <label class="form-check-label" for="nearPiatol">
-          Near Piatol
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="farPistol">
-        <label class="form-check-label" for="farPistol">
-          Far Pistol
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="strong">
-        <label class="form-check-label" for="strong">
-          Strong
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="weak">
-        <label class="form-check-label" for="weak">
-          Weak
-        </label>
-      </div>
-    </div>
-  </div>
-  <div>
-     <div class="form-group row">
-    <div class="col-sm-10">
-      <button type="submit" class="btn btn-primary">Save</button>
-    </div>
-  </div>
-   <div class="form-group row">
-    <div class="col-sm-10">
-      <button type="submit" class="btn btn-primary">Add Another Formation</button>
-    </div>
-  </div>
-
-  </div>
-
-</form>
-
-
 {%endblock%}

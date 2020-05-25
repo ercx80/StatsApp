@@ -59,13 +59,13 @@ def index():
 
    return render_template('index.html')
 
-@app.route('/add', methods=['POST','GET'])
-def add():
-    return render_template('AddTeam.html')
-
 @app.route('/search', methods=['POST','GET'])
 def search():
     return render_template('search.html')
+
+@app.route('/add', methods=['POST','GET'])
+def add():
+    return render_template('add.html')
 
 @app.route('/tally', methods=['POST','GET'])
 def tally():
