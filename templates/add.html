@@ -7,7 +7,10 @@
   <div class="form-group row">
     <label for="plan" class="col-sm-2 col-form-label">Name:</label>
     <div class="col-sm-10">
-      <input type="text" id="plan" name='plan'>
+      <input type="text" id="plan" name='plan' value='{{request.form['plan']}}'>
+      {%if plan_error%}
+      <div class = error>{{plan_error}}</div>
+      {% endif %}
     </div>
   </div>
 <p><h1>Choose Your Formation<p></h1>
