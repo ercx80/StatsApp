@@ -1,9 +1,8 @@
 from flask import Flask, redirect, request, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-#SQLALCHEMY_DATABASE_URI="mysql://sql9342668:TKSSHLhfv9@sql9.freemysqlhosting.net/sql9342668"
 SQLAlchemy_TRACK_MODIFICATIONS=True
-#DEBUG=True
+
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -16,11 +15,11 @@ class Gameplans(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(120))
     
-    formations = db.relationship('Formations', backref='formations')
+    forms = db.relationship('Formations', backref='gameplan')
 
-    def __init__(self, name, formations):
+    def __init__(self, name):
         self.name=name
-        self.formations=formations
+        
 
 
 class Formations(db.Model):
@@ -28,13 +27,13 @@ class Formations(db.Model):
     formation= db.Column(db.String(120))
     gameplan_id=db.Column(db.Integer, db.ForeignKey('gameplans.id'))
 
-    variations = db.relationship('Variations', backref='formations')
+    variations = db.relationship('Variations', backref='form')
     
     
 
-    def __init__(self, formation): #this is the class constructor
-        self.formations=formation
-        
+    def __init__(self, formation, gameplan): #this is the class constructor
+        self.formation = formation
+        self.gameplan = gameplan 
 
 
 class Variations(db.Model):
@@ -42,8 +41,9 @@ class Variations(db.Model):
     variation=db.Column(db.String(120))
     formation_id=db.Column(db.Integer, db.ForeignKey('formations.id'))
 
-    def _init__(self,  variations):
+    def _init__(self,  variations, form):
         self.variations= variations
+        self.form=form
 
 class Totals(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -65,6 +65,7 @@ def search():
 
 @app.route('/add', methods=['POST','GET'])
 def add():
+            
     return render_template('add.html')
 
 @app.route('/tally', methods=['POST','GET'])

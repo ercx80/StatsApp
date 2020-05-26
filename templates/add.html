@@ -2,12 +2,12 @@
 {%block title%}Football Stats{%endblock%}
 {% block content %}
 <div class='container'>
-<form>
+<form action='/add' method='POST'>
 <h1>Enter a name for your gameplan:</h1>
   <div class="form-group row">
     <label for="plan" class="col-sm-2 col-form-label">Name:</label>
     <div class="col-sm-10">
-      <input type="text" id="plan">
+      <input type="text" id="plan" name='plan'>
     </div>
   </div>
 <p><h1>Choose Your Formation<p></h1>
@@ -16,8 +16,6 @@
       <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
         <option selected>Choose...</option>
         <option value="doubles">Doubles</option>
-        <option value="wing">Wing</option>
-        <option value="trips">Trips</option>
       </select>
     </div>
   </div>
@@ -66,7 +64,7 @@
   </div>
    <div class="form-group row">
     <div class="col-sm-10">
-      <button type="submit" class="btn btn-primary">Add Another Formation</button>
+      <button type="submit" value = 'add' class="btn btn-primary">Add Another Formation</button>
     </div>
   </div>
 
