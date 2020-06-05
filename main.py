@@ -13,9 +13,9 @@ db = SQLAlchemy(app)
 
 class Gameplans(db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    name=db.Column(db.String(120))
+    name=db.Column(db.String(120), unique=True)
     
-    forms = db.relationship('Formations', backref='gameplan')
+    forms = db.relationship('Formations', backref='gameplans')
 
     def __init__(self, name):
         self.name=name
@@ -31,9 +31,9 @@ class Formations(db.Model):
     
     
 
-    def __init__(self, formation, gameplan): #this is the class constructor
+    def __init__(self, formation): #this is the class constructor
         self.formation = formation
-        self.gameplan = gameplan 
+        #self.gameplan = gameplan 
 
 
 class Variations(db.Model):
@@ -91,7 +91,7 @@ def add():
             new_form = Formations(formation_choice)
             new_var = Variations(variation_choice)
 
-            db.session.add(new_plan, new_form, new_var)
+            db.session.add(new_plan)
             db.session.commit()
             return redirect('/tally?id={}'.format(new_plan.id, new_form.id, new_var.id))
         else:
