@@ -1,62 +1,17 @@
-from flask import Flask, redirect, request, render_template, url_for
+from flask import Flask, redirect, request, render_template, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import Form
 from wtforms  import StringField, PasswordField
 
 
-SQLAlchemy_TRACK_MODIFICATIONS=True
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'TheSecret'
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://sql9342668:TKSSHLhfv9@sql9.freemysqlhosting.net/sql9342668'
-app.config['SQLALCHEMY_ECHO']= True
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
-db = SQLAlchemy(app)
-
-class Gameplans(db.Model):
-    id=db.Column(db.Integer, primary_key=True)
-    name=db.Column(db.String(120), unique=True)
-    
-    forms = db.relationship('Formations', backref='gameplans')
-
-    def __init__(self, name):
-        self.name=name
-        
 
 
-class Formations(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    formation= db.Column(db.String(120))
-    gameplan_id=db.Column(db.Integer, db.ForeignKey('gameplans.id'))
-
-    variations = db.relationship('Variations', backref='form')
-    
-    
-
-    def __init__(self, formation): #this is the class constructor
-        self.formation = formation
-        #self.gameplan = gameplan 
-
-
-class Variations(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    variation=db.Column(db.String(120))
-    formation_id=db.Column(db.Integer, db.ForeignKey('formations.id'))
-
-    def _init__(self,  variations, form):
-        self.variations= variations
-        self.form=form
-
-class Totals(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    direction= db.Column(db.String(120))
-    play=db.Column(db.String(120))
-
-    def __init__(self, direction, play):
-        self.direction=direction
-        self.play = play
+formation_names = []
+variation_names = []
 
 @app.route('/', methods=['POST','GET'])
 def index():
@@ -70,13 +25,20 @@ def search():
 @app.route('/add', methods=['POST','GET'])
 def add():
     if request.method == 'POST':
-        #plan_name = request.form('name')
-        #formation_name = request.form['formation']
-        #variation_name = request.form['variation']
+        
         plan_name = request.form['name']
-        formation_name = request.form['formation']
-        variation_name = request.form['variation']
-        return redirect('/tally')
+        session['plan_name'] = plan_name
+
+
+        formation_name = request.form.getlist('formation')
+        session['formation_name'] = formation_name
+        formation_names.append(formation_name)
+
+        variation_name = request.form.getlist('variation')
+        session ['variation_name'] = variation_name
+        variation_names.append(variation_name)
+        
+        return redirect(url_for('tally'))
 
     return render_template('add.html')
 
@@ -85,11 +47,14 @@ def add():
             
    
 
-@app.route('/tally', methods=['Get','POST'])
+@app.route('/tally', methods=['GET'])
 def tally():
-      
-        
-    return render_template('tally.html')
+    plan_name = session['plan_name']
+    formation_name = session['formation_name']
+    variation_name = session['variation_name']
+
+    return render_template('tally.html', plan_name=plan_name,formation_name=formation_name,variation_name=variation_name)
+
 
 
 
