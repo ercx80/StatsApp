@@ -6,12 +6,9 @@
 
   <thead >
   
-    <tr>
-    {%for f in formation_names %}
-      <th values ='{f.formation_name}}'scope="col">{{f.formation_name}}</th>
-     {% endfor %}
     
-    <tr>
+    
+      <th scope="col">{{formation_name}}</th>
       <th scope="col">Left</th>
       <th scope="col">Right</th>
    
@@ -22,15 +19,17 @@
   
   
     <tr>
-    {% for v in variation_names%}
-      <td scope="row">{{v.variation_name}}</td> 
-    {% endfor %}
+      
+      <td scope="row">{{variation_name}}</td> 
+      
+    
          <td>
             <div class='container'>
                 <button type="button" class="btn btn-outline-primary">Run</button>
                 <button type="button" class="btn btn-outline-primary">Pass</button>
             </div>
         </td>
+
         <td>
     
             <div class='container'>

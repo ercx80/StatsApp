@@ -10,8 +10,7 @@ app.config['SECRET_KEY'] = 'TheSecret'
 app.config['DEBUG'] = True
 
 
-formation_names = []
-variation_names = []
+
 
 @app.route('/', methods=['POST','GET'])
 def index():
@@ -26,20 +25,19 @@ def search():
 def add():
     if request.method == 'POST':
         
-        plan_name = request.form['name']
-        session['plan_name'] = plan_name
+        plan_name = request.form['name'] #in this line, the variable inside the brakets is the variable passed from the form
+        session['plan_name'] = plan_name #Here we store the object plan_name into a session
 
 
-        formation_name = request.form.getlist('formation')
+        formation_name = request.form['formation']
         session['formation_name'] = formation_name
-        formation_names.append(formation_name)
+        #formation_names.append(formation_name)
 
-        variation_name = request.form.getlist('variation')
+        variation_name = request.form['variation']
         session ['variation_name'] = variation_name
-        variation_names.append(variation_name)
+        #variation_names.append(variation_name)
         
         return redirect(url_for('tally'))
-
     return render_template('add.html')
 
     
