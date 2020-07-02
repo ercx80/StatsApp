@@ -53,7 +53,8 @@ def tally():
 
     return render_template('tally.html', plan_name=plan_name,formation_name=formation_name,variation_name=variation_name)
 
-
+    
+        
 
 
 if __name__ == '__main__':
