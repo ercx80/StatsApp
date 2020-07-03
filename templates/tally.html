@@ -27,8 +27,10 @@
      
          <td>
             <div class='container'>
-              <button onclick = "leftruncount()" id= "count1" class="btn btn-outline-primary">Run 0</button>
-              <button onclick="leftpasscount()" id= "count2" class="btn btn-outline-primary">Pass 0</button>  
+              <label>Run</label>
+              <button onclick = "leftruncount()" id= "count1" class="btn btn-outline-primary">0</button>
+              <label>Pass</label>
+              <button onclick="leftpasscount()" id= "count2" class="btn btn-outline-primary">0</button>  
             </div>
         </td>
        
@@ -36,8 +38,10 @@
         <td>
     
             <div class='container'>
-                <button onclick = "rightruncount()" id= "count3"  class="btn btn-outline-primary">Run</button>
-                <button onclick = "rightpasscount()" id= "count4" class="btn btn-outline-primary">Pass</button>
+                <label>Run</label>
+                <button onclick = "rightruncount()" id= "count3"  class="btn btn-outline-primary">0</button>
+                <label>Pass</label>
+                <button onclick = "rightpasscount()" id= "count4" class="btn btn-outline-primary">0</button>
             </div>
         </td>
     </tr>
@@ -53,46 +57,37 @@
       <button type="submit" class="btn btn-primary">Tally Results</button>
 </div>
 <script>
-  var count = (function (){
+  var count1 = (function (){
     var counter1 = 0;
     return function() {return counter1 += 1;}
 
   })();
   function leftruncount(){
-    document.getElementById("count1").innerHTML = count();
+    document.getElementById("count1").innerHTML = count1();
   }
-</script>
-
-<script>
-var count = (function (){
+var count2 = (function (){
     var counter2 = 0;
     return function() {return counter2 += 1;}
 
   })();
   function leftpasscount(){
-    document.getElementById("count2").innerHTML = count();
+    document.getElementById("count2").innerHTML = count2();
   }
-</script>
-
-<script>
-var count = (function (){
+var count3 = (function (){
     var counter3 = 0;
     return function() {return counter3 += 1;}
 
   })();
   function rightruncount(){
-    document.getElementById("count3").innerHTML = count();
+    document.getElementById("count3").innerHTML = count3();
   }
-</script>
-
-<script>
-var count = (function (){
+var count4 = (function (){
     var counter4 = 0;
     return function() {return counter4 += 1;}
 
   })();
   function rightpasscount(){
-    document.getElementById("count4").innerHTML = count();
+    document.getElementById("count4").innerHTML = count4();
   }
 </script>
     
