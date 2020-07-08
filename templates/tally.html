@@ -28,9 +28,10 @@
          <td>
             <div class='container'>
               <label>Run</label>
-              <button onclick = "leftruncount()" id= "count1" class="btn btn-outline-primary">0</button>
+              <button onclick = "leftruncount()" name = {{'count1'}} id= "count1" class="btn btn-outline-primary">0</button>
+             
               <label>Pass</label>
-              <button onclick="leftpasscount()" id= "count2" class="btn btn-outline-primary">0</button>  
+              <button onclick="leftpasscount()" name = {{'count2'}} id= "count2" class="btn btn-outline-primary">0</button>  
             </div>
         </td>
        
@@ -39,9 +40,9 @@
     
             <div class='container'>
                 <label>Run</label>
-                <button onclick = "rightruncount()" id= "count3"  class="btn btn-outline-primary">0</button>
+                <button onclick = "rightruncount()" name = 'count3' id= "count3"  class="btn btn-outline-primary">0</button>
                 <label>Pass</label>
-                <button onclick = "rightpasscount()" id= "count4" class="btn btn-outline-primary">0</button>
+                <button onclick = "rightpasscount()" name = 'count4' id= "count4" class="btn btn-outline-primary">0</button>
             </div>
         </td>
     </tr>
@@ -52,10 +53,11 @@
     
 </table>
 
-
+<form action='/results' method='POST'>
 <div class="col-sm-10 container">
       <button type="submit" class="btn btn-primary">Tally Results</button>
 </div>
+</form>
 <script>
   var count1 = (function (){
     var counter1 = 0;
@@ -90,5 +92,5 @@ var count4 = (function (){
     document.getElementById("count4").innerHTML = count4();
   }
 </script>
-    
+
 {%endblock%}

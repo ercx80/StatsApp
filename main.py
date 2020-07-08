@@ -53,6 +53,13 @@ def tally():
 
     return render_template('tally.html', plan_name=plan_name,formation_name=formation_name,variation_name=variation_name)
 
+@app.route('/results', methods=['GET','POST'])
+def results():
+    
+        counting= int['count1', 'count2']
+        for countering in counting:
+            countering +=1 
+        return ("The total count is ", countering)
 
 
     
