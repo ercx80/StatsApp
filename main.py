@@ -17,7 +17,7 @@ class Gameplans(db.Model):
     
     forms = db.relationship('Formations', backref='gameplans')
 
-    def __init__(self, name):
+    def __init__(self, name): #this is the database constructure
         self.name=name
         
 
@@ -65,39 +65,21 @@ def search():
 
 @app.route('/add', methods=['POST','GET'])
 def add():
-    plan_name = ''
-    formation_choice = ''
-    variation_choice = ''
-
-
-    plan_error = ''
-    formation_error = ''
-    variation_error = ''
+    
 
     if request.method == 'POST':
-        plan_name = request.form['plan']
-        formation_choice = request.form['choice']
-        variation_choice = request.form['variation']
-        
-        if plan_name == '':
-            plan_error = 'This field cannot be empty'
-        if formation_choice == '':
-            formation_error = 'Please choose a formation'
-        if variation_choice == '':
-            variation_error = 'Please choose a variation'
-        
-        if not plan_error and not formation_error and not variation_error:
-            new_plan = Gameplans(plan_name)
-            new_form = Formations(formation_choice)
-            new_var = Variations(variation_choice)
-
-            db.session.add(new_plan)
-            db.session.commit()
-            return redirect('/tally?id={}'.format(new_plan.id, new_form.id, new_var.id))
-        else:
-                return render_template('add.html', plan_error, formation_error, variation_error)
+        plan_name = request.form['plan'] #variable inside the bracket is what the request gets from the form. Name in the template
             
-    return render_template('add.html')
+        new_plan = Gameplans(plan_name) #new_plan is the object created and inside the () is the variable
+        
+        db.session.add(new_plan)
+        db.session.commit()
+    forms = Formations.query.all()
+    variants = Variations.query.all()
+    
+    return render_template('add.html', forms = forms , variants = variants)
+            
+    
 
 @app.route('/tally', methods=['POST','GET'])
 def tally():
