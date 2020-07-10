@@ -17,32 +17,32 @@ class Gameplans(db.Model):
     
     forms = db.relationship('Formations', backref='gameplans')
 
-    def __init__(self, name): #this is the database constructure
+    def __init__(self, name): #this is the database constructor
         self.name=name
         
 
 
 class Formations(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    formation= db.Column(db.String(120))
+    formation_name= db.Column(db.String(120))
     gameplan_id=db.Column(db.Integer, db.ForeignKey('gameplans.id'))
 
     variations = db.relationship('Variations', backref='form')
     
     
 
-    def __init__(self, formation): #this is the class constructor
-        self.formation = formation
+    def __init__(self, formation_name): #this is the class constructor
+        self.formation_name = formation_name
         #self.gameplan = gameplan 
 
 
 class Variations(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    variation=db.Column(db.String(120))
+    variation_name=db.Column(db.String(120))
     formation_id=db.Column(db.Integer, db.ForeignKey('formations.id'))
 
-    def _init__(self,  variations, form):
-        self.variations= variations
+    def _init__(self,  variation_name, form):
+        self.variation_name= variation_name
         self.form=form
 
 class Totals(db.Model):
@@ -66,18 +66,22 @@ def search():
 @app.route('/add', methods=['POST','GET'])
 def add():
     
+    
 
     if request.method == 'POST':
-        plan_name = request.form['plan'] #variable inside the bracket is what the request gets from the form. Name in the template
-            
-        new_plan = Gameplans(plan_name) #new_plan is the object created and inside the () is the variable
-        
-        db.session.add(new_plan)
-        db.session.commit()
-    forms = Formations.query.all()
-    variants = Variations.query.all()
+        formations = Formations.query.all()
+        variations = Variations.query.all()
+        return render_template('add.html', formations= formations, variations = variations)
+
+    plan_name = request.form['plan'] #variable inside the bracket is what the request gets from the form. Name in the template
+    new_plan = Gameplans(plan_name) #new_plan is the object created and inside the () is the variable        db.session.add(new_plan)
+    db.session.commit()
+    formation = Formations.query.get('formation.id')
+    variation = Variations.query.get('variation.id')
+
+    return redirect('tally.html',plan_name = plan_name, formation=formation,variation=variation)
     
-    return render_template('add.html', forms = forms , variants = variants)
+    
             
     
 
