@@ -65,29 +65,28 @@ def search():
 
 @app.route('/add', methods=['POST','GET'])
 def add():
-    
-    
-
-    if request.method == 'POST':
-        formations = Formations.query.all()
-        variations = Variations.query.all()
-        return render_template('add.html', formations= formations, variations = variations)
-
-    plan_name = request.form['plan'] #variable inside the bracket is what the request gets from the form. Name in the template
-    new_plan = Gameplans(plan_name) #new_plan is the object created and inside the () is the variable        db.session.add(new_plan)
-    db.session.commit()
-    formation = Formations.query.get('formation.id')
-    variation = Variations.query.get('variation.id')
-
-    return redirect('tally.html',plan_name = plan_name, formation=formation,variation=variation)
-    
-    
-            
+    formations = Formations.query.all()
+    variations = Variations.query.all()
+    return render_template('add.html', formations=formations, variations = variations)
     
 
 @app.route('/tally', methods=['POST','GET'])
 def tally():
-    return render_template('tally.html')
+    
+    if request.method == 'POST':
+
+        plan_name = request.form['plan'] #variable inside the bracket is what the request gets from the form. Name in the template
+        new_plan = Gameplans(plan_name) #new_plan is the object created and inside the () is the variable        db.session.add(new_plan)
+        db.session.add(new_plan)
+        db.session.commit()
+        # Need to figure out how to pass the data to the template by ID
+        #formation_id = int(request.form['formation-id']) #check this line
+        #variation_id = int(request.form['variation-id'])
+        formation = Formations.query.get('formation_name') #check this line
+        variation = Variations.query.get('variation_name')
+
+    return render_template('tally.html',plan_name = plan_name, formation=formation,variation=variation)
+    
 
 
 
