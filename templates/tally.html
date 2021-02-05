@@ -6,15 +6,18 @@
 <table style= 'text-align:center' class='container table table-bordered'>
   <thead >
     <tr>
-    
-      <th scope="col">{{formation}}</th> 
+      {%for formation in formations%}
+      <th scope="col">{{formation.formation_name}}</th> 
+      {% endfor %}
       <th scope="col">Left</th>
       <th scope="col">Right</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td scope="row">{{variation}}</td> 
+      {%for variation in variations%}
+      <td scope="row">{{variation.variation_name}}</td> 
+      {% endfor %}
         <td>
             <div class='container'>
                 <button type="button" class="btn btn-outline-primary">Run</button>

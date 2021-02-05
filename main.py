@@ -1,10 +1,11 @@
-from flask import Flask, redirect, request, render_template, url_for
+from flask import Flask, redirect, request, render_template, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 
 SQLAlchemy_TRACK_MODIFICATIONS=True
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'TheSecret'
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://sql9342668:TKSSHLhfv9@sql9.freemysqlhosting.net/sql9342668'
 app.config['SQLALCHEMY_ECHO']= True
@@ -54,7 +55,7 @@ class Totals(db.Model):
         self.direction=direction
         self.play = play
 
-@app.route('/', methods=['POST','GET'])
+@app.route('/')
 def index():
 
    return render_template('index.html')
@@ -63,29 +64,50 @@ def index():
 def search():
     return render_template('search.html')
 
-@app.route('/add', methods=['POST','GET'])
+@app.route('/add', methods=['GET','POST'])
 def add():
     formations = Formations.query.all()
     variations = Variations.query.all()
-    return render_template('add.html', formations=formations, variations = variations)
+    if request.method == 'POST':
+        
+        plan_name = request.form['plan'] #variable inside the bracket is what the request gets from the form. Name in the template
+        new_plan = Gameplans(plan_name) #new_plan is the object created and inside the () is the variable        db.session.add(new_plan)
+        session['new_plan'] = new_plan
+        db.session.add(new_plan)
+        db.session.commit()
+
+        formation_id = int(request.form['formation-id'])
+        formations = Formations.query.get(formation_id)
+        session['formations'] = formations
+        #db.session.add(formation_id)
+        #db.session.commit()
+
+        variation_id = int(request.form['variation-id'])
+        variations = Variations.query.get(variation_id)
+        session['variations'] = variations
+        #db.session.add(variation_id)
+        #db.session.commit()
+
+        return redirect(url_for('tally'))
+    #I need to figure out how to get the name of the objuect but save it on the database
+    #as the id 
     
+
+    return render_template('add.html',formations=formations, variations = variations)
 
 @app.route('/tally', methods=['POST','GET'])
 def tally():
+    new_plan = session['new_plan']
+    formations = session['formations']
+    variation = session['variations']
+
+    return render_template('tally.html', new_plan=new_plan, formations=formations, variations = variations)
     
-    if request.method == 'POST':
 
-        plan_name = request.form['plan'] #variable inside the bracket is what the request gets from the form. Name in the template
-        new_plan = Gameplans(plan_name) #new_plan is the object created and inside the () is the variable        db.session.add(new_plan)
-        db.session.add(new_plan)
-        db.session.commit()
-        # Need to figure out how to pass the data to the template by ID
-        #formation_id = int(request.form['formation-id']) #check this line
-        #variation_id = int(request.form['variation-id'])
-        formation = Formations.query.get('formation_name') #check this line
-        variation = Variations.query.get('variation_name')
-
-    return render_template('tally.html',plan_name = plan_name, formation=formation,variation=variation)
+        
+    
+    
+    
     
 
 
